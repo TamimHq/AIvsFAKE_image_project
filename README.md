@@ -61,13 +61,19 @@ The advancement of generative AI models has made it increasingly difficult to di
 
 ## 📈 Visualizations
 ### 🔹 Training vs Validation Accuracy
-![Accuracy](results/accuracy.png)
+<p align="center">
+  <img src="results/accuracy.png" width="500"/>
+</p>
 
 ### 🔹 Confusion Matrix
-![Confusion Matrix](results/confusion_matrix.png)
+<p align="center">
+  <img src="results/confusion_matrix.png" width="500"/>
+</p>
 
 ### 🔹 Test Metrics
-![Test Metrics](results/test_metrics.png)
+<p align="center">
+  <img src="results/test_metrics.png" width="500"/>
+</p>
 
 ---
 
@@ -79,3 +85,35 @@ The advancement of generative AI models has made it increasingly difficult to di
 - Scikit-learn
 
 ---
+
+## How to Run
+1. Download `kaggle.json` from your Kaggle account.
+2. Upload it in Google Colab.
+3. Move it to the Kaggle directory:
+   ```python
+   !mkdir -p ~/.kaggle
+   !mv kaggle.json ~/.kaggle/
+   !chmod 600 ~/.kaggle/kaggle.json
+4. Download the dataset:
+   ```python
+   !kaggle datasets download -d birdy654/cifake-real-and-ai-generated-synthetic-images
+   !unzip cifake-real-and-ai-generated-synthetic-images.zip
+5. Run the notebook ***AI_VS_FAKE.ipynb***
+
+---
+
+## Project Structure
+  ```bash
+      AIvsFAKE_image_project/
+      ├── AI_VS_FAKE.ipynb
+      ├── README.md
+      ├── LICENSE
+      └── results/
+          ├── accuracy.png
+          ├── confusion_matrix.png
+          └── test_metrics.png
+
+```
+## Prediction Example
+```python
+   The image is predicted to be: Real
