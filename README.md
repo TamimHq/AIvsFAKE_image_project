@@ -26,32 +26,42 @@ The advancement of generative AI models has made it increasingly difficult to di
 ## 🧠 Methodology
 
 ### 🔹 Data Preprocessing
-- Rescaled images (pixel normalization)
-- Resized images to **128x128**
-- Used `ImageDataGenerator` for loading data
+- Rescaled images (pixel normalization: 1/255)
+- Resized images to 128x128
+- Applied data augmentation:
+ - Rotation
+ - Zoom
+ - Shift (width & height)
+ - Brightness adjustment
+ - Horizontal flip
+- Used validation split (20%) for better generalization
 
 ### 🔹 Model Architecture
 - Convolutional Neural Network (CNN)
-  - Conv2D (32 filters)
-  - MaxPooling
-  - Conv2D (64 filters)
-  - MaxPooling
-  - Flatten layer
-  - Dense (128 neurons)
+  - Conv2D (32) → BatchNorm → MaxPooling
+  - Conv2D (64) → BatchNorm → MaxPooling
+  - Conv2D (128) → BatchNorm → MaxPooling
+  - Conv2D (256) → BatchNorm → MaxPooling
+  - GlobalAveragePooling
+  - Dense (128)
   - Dropout (0.5)
-  - Output layer (Sigmoid)
+  - Output Layer (Sigmoid)
 
 ### 🔹 Training
 - Loss Function: Binary Crossentropy
-- Optimizer: Adam
+- Optimizer: Adam (lr = 1e-4)
 - Epochs: 20
-- Batch Size: 16
+- Batch Size: 32
+- Validation: Separate validation set (not test data)
+**Callbacks Used:**
+- EarlyStopping (prevents overfitting)
+- ReduceLROnPlateau (adaptive learning rate)
 
 ---
 
 ## 📊 Results
 - Model evaluated on test dataset
-- Achieved: **93.04% accuracy**
+- Achieved: **94.35% accuracy (on CIFAKE dataset)**
 - Performance analyzed using:
   - Training vs Validation Accuracy Graph
   - Confusion Matrix
@@ -121,7 +131,22 @@ def predict_image(image_path):
     return "Real" if prediction[0][0] > 0.5 else "AI-Generated"
 ```
 ---
+## ⚠️ Limitations
+- Model performs well on CIFAKE dataset but may struggle on:
+ - Real-world camera images
+ - Social media images
+ - AI images from unseen generators
 
+This is due to **dataset bias and domain shift**.
+
+---
+## 🔧 Future Improvements
+- Use Transfer Learning (EfficientNet / MobileNet)
+- Increase image size (e.g., 224×224)
+- Train on more diverse datasets
+- Improve real-world generalization
+- Add deployment (web/app interface)
+---
 ## 📁 Project Structure
 ```bash
 AIvsFAKE_image_project/
