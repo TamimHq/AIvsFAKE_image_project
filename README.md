@@ -1,7 +1,11 @@
-# 🧠 AI vs Real Image Classification using CNN
+# 🧠 AI vs Real Image Classification
+---
 
 ## 📌 Overview
-This project develops a deep learning model to classify whether an image is **real or AI-generated** using Convolutional Neural Networks (CNN). With the rapid rise of generative AI, detecting synthetic images has become a critical challenge, and this project aims to address that problem.
+This project develops a deep learning system to classify whether an image is **real or AI-generated**. It compares two approaches:
+- A Custom **Convolutional Neural Network (CNN)** built from scratch
+- A transfer learning model **(EfficientNetB0)**
+With the rapid rise of generative AI, detecting synthetic images has become a critical challenge, and this project explores both performance and generalization aspects of this task.
 
 ---
 
@@ -27,7 +31,7 @@ The advancement of generative AI models has made it increasingly difficult to di
 
 ### 🔹 Data Preprocessing
 - Rescaled images (pixel normalization: 1/255)
-- Resized images to 128x128
+- Resized images to 128x128 (CNN) and 224x224 (EfficientNet)
 - Applied data augmentation:
  - Rotation
  - Zoom
@@ -36,55 +40,76 @@ The advancement of generative AI models has made it increasingly difficult to di
  - Horizontal flip
 - Used validation split (20%) for better generalization
 
-### 🔹 Model Architecture
-- Convolutional Neural Network (CNN)
-  - Conv2D (32) → BatchNorm → MaxPooling
-  - Conv2D (64) → BatchNorm → MaxPooling
-  - Conv2D (128) → BatchNorm → MaxPooling
-  - Conv2D (256) → BatchNorm → MaxPooling
-  - GlobalAveragePooling
-  - Dense (128)
-  - Dropout (0.5)
-  - Output Layer (Sigmoid)
+### 🔹 Models Used
+### ✅ 1. Custom CNN (Baseline Model)
+- Conv2D (32) → BatchNorm → MaxPooling
+- Conv2D (64) → BatchNorm → MaxPooling
+- Conv2D (128) → BatchNorm → MaxPooling
+- Conv2D (256) → BatchNorm → MaxPooling
+- GlobalAveragePooling
+- Dense (128)
+- Dropout (0.5)
+- Output Layer (Sigmoid)
+
+---
+
+### 🚀 2. EfficientNetB0 (Transfer Learning)
+- Pretrained on ImageNet
+- Feature extraction + fine-tuning
+- Input size: 224×224
+- GlobalAveragePooling + Dense head
+
+---
 
 ### 🔹 Training
-- Loss Function: Binary Crossentropy
-- Optimizer: Adam (lr = 1e-4)
+- Loss Function: **Binary Crossentropy**
+- Optimizer: Adam
+- CNN Learning Rate: 1e-4
+- EfficientNet Learning Rate:
+- Stage 1: 1e-3
+- Fine-tuning: 1e-5
 - Epochs: 20
 - Batch Size: 32
-- Validation: Separate validation set (not test data)
 **Callbacks Used:**
-- EarlyStopping (prevents overfitting)
-- ReduceLROnPlateau (adaptive learning rate)
+- EarlyStopping
+- ReduceLROnPlateau
 
 ---
 
 ## 📊 Results
-- Model evaluated on test dataset
-- Achieved: **94.35% accuracy (on CIFAKE dataset)**
-- Performance analyzed using:
-  - Training vs Validation Accuracy Graph
-  - Confusion Matrix
-  - Test Accuracy & Loss
+### 🔹 CNN Performance
+- Accuracy: 94.35%
+- Loss: 0.15
+### 🔹 EfficientNetB0 Performance
+- Accuracy: 83.72%
+- Loss: 0.465
+---
+## 📊 Model Comparison
+
+| Metric | Custom CNN | EfficientNetB0 |
+|--------|------------|----------------|
+| Test Accuracy | 94.35% | 83.72% |
+| Test Loss | 0.15 | 0.465 |
+| FAKE Recall | ~98% | 72% |
+| REAL Recall | ~90% | 95% |
+| Generalization | Limited | Better |
+| Real-world Images | Weak | Improved |
+
 
 ---
 
 ## 📈 Visualizations
-### 🔹 Training vs Validation Accuracy
-<p align="center">
-  <img src="results/accuracy.png" width="500"/>
-</p>
+### 🔹 CNN Accuracy
+<p align="center"> <img src="results/cnn_accuracy.png" width="500"/> </p>
 
-### 🔹 Confusion Matrix
-<p align="center">
-  <img src="results/confusion_matrix.png" width="500"/>
-</p>
+### 🔹 CNN Confusion Matrix
+<p align="center"> <img src="results/cnn_confusion_matrix.png" width="500"/> </p>
 
-### 🔹 Test Metrics
-<p align="center">
-  <img src="results/test_metrics.png" width="500"/>
-</p>
+### 🔹 EfficientNet Accuracy
+<p align="center"> <img src="results/efficientnet_accuracy.png" width="500"/> </p>
 
+### 🔹 EfficientNet Confusion Matrix
+<p align="center"> <img src="results/efficientnet_confusion_matrix.png" width="500"/> </p>
 ---
 
 ## 🛠️ Technologies Used
@@ -113,6 +138,8 @@ Download `kaggle.json` from your Kaggle account.
 Open and run: 
 ```bash
 ai_vs_real_image_classification.ipynb
+ai_vs_real_image_classification_EfficientNetB0.ipynb
+model_comparison.ipynb
 ```
 ---
 ## 🔍 Prediction Example
@@ -132,31 +159,43 @@ def predict_image(image_path):
 ```
 ---
 ## ⚠️ Limitations
-- Model performs well on CIFAKE dataset but may struggle on:
+- Performance depends on CIFAKE dataset
+- struggle with:
  - Real-world camera images
  - Social media images
  - AI images from unseen generators
 
-This is due to **dataset bias and domain shift**.
-
 ---
+
 ## 🔧 Future Improvements
 - Use Transfer Learning (EfficientNet / MobileNet)
 - Increase image size (e.g., 224×224)
 - Train on more diverse datasets
 - Improve real-world generalization
 - Add deployment (web/app interface)
+
 ---
+
 ## 📁 Project Structure
 ```bash
 AIvsFAKE_image_project/
-├── AI_VS_FAKE.ipynb
+├── models/
+│   ├── cifake_model.keras(CNN model)
+│   └── efficientnet_cifake.keras
+├── notebooks/
+│   ├── ai_vs_real_image_classification_cnn.ipynb
+│   ├── ai_vs_real_image_classification_EfficientNetB0.ipynb
+│   └── model_comparison.ipynb
+├── results/
+│   ├── cnn_accuracy.png
+│   ├── cnn_confusion_matrix.png
+│   ├── efficientnet_accuracy.png
+│   ├── efficientnet_confusion_matrix.png
+│   └── comparison_table.png
 ├── README.md
 ├── LICENSE
-└── results/
-    ├── accuracy.png
-    ├── confusion_matrix.png
-    └── test_metrics.png
+
+
 ```
 ```md
 This project demonstrates a complete deep learning pipeline from data preprocessing to model evaluation and inference.
