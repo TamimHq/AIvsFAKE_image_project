@@ -12,8 +12,8 @@ st.set_page_config(
 
 @st.cache_resource
 def load_models():
-    cnn = load_model("cifake_model.keras")
-    eff = load_model("efficientnet_cifake.keras")
+    cnn = load_model("models/cifake_model.keras")
+    eff = load_model("models/efficientnet_cifake.keras")
     return cnn, eff
 
 cnn_model, efficient_model = load_models()
