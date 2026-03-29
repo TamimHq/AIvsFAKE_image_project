@@ -124,17 +124,8 @@ The advancement of generative AI models has made it increasingly difficult to di
 ## ▶️ How to Run
 ### 1. Kaggle Setup
 Download `kaggle.json` from your Kaggle account.
- ```python
-   !mkdir -p ~/.kaggle
-   !mv kaggle.json ~/.kaggle/
-   !chmod 600 ~/.kaggle/kaggle.json
-   ```
-### 2. Download Dataset
- ```python
-   !kaggle datasets download -d birdy654/cifake-real-and-ai-generated-synthetic-images
-   !unzip cifake-real-and-ai-generated-synthetic-images.zip
-   ```
-### 3. Run the notebook 
+ 
+### 2. Run the notebook 
 Open and run: 
 ```bash
 ai_vs_real_image_classification.ipynb
