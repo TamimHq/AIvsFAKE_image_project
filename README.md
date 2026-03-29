@@ -190,3 +190,7 @@ AIvsFAKE_image_project/
 ```
 ```md
 This project demonstrates a complete deep learning pipeline from data preprocessing to model evaluation and inference.
+```
+**Try the live application here:** [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://aivsfake-classifier.streamlit.app/)
+ 
+**A deep learning web application built to distinguish between real photographs and AI-generated synthetic images.**
