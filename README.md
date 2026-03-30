@@ -114,7 +114,9 @@ The advancement of generative AI models has made it increasingly difficult to di
 
 ### 🔹 EfficientNet Confusion Matrix
 <p align="center"> <img src="results/efficientnet_confusion_matrix.png" width="500"/> </p>
----
+
+### 🔹 Model Accuracy Comparison
+<p align="center"> <img src="results/comparison_table.png" width="500"/> </p>
 
 ## 🛠️ Technologies Used
 - Python
