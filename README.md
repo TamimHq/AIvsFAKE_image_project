@@ -1,4 +1,8 @@
 # 🧠 AI vs Real Image Classification
+
+**Try the live application here:** [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://aivsfake-classifier.streamlit.app/)
+ 
+**A deep learning web application built to distinguish between real photographs and AI-generated synthetic images.**
 ---
 
 ## 📌 Overview
@@ -122,16 +126,53 @@ The advancement of generative AI models has made it increasingly difficult to di
 ---
 
 ## ▶️ How to Run
-### 1. Kaggle Setup
-Download `kaggle.json` from your Kaggle account.
- 
-### 2. Run the notebook 
-Open and run: 
+You can explore this project in two ways: by running the interactive web application locally, or by executing the Jupyter notebooks to view the model training process.
+
+### Option 1: Run the Web Application Locally
+The easiest way to test the models is through the Streamlit interface.
+
+**1. Clone the repository**
 ```bash
-ai_vs_real_image_classification.ipynb
-ai_vs_real_image_classification_EfficientNetB0.ipynb
-model_comparison.ipynb
+git clone [https://github.com/TamimHq/AIvsFAKE_image_project.git](https://github.com/TamimHq/AIvsFAKE_image_project.git)
+cd AIvsFAKE_image_project
 ```
+**2. Install dependencies**
+Navigate to the ```app``` folder and install the required Python packages:
+```bash
+cd app
+pip install -r requirements.txt
+```
+**3. Launch the app**
+```bash
+streamlit run app.py
+```
+The application will open automatically in your default web browser at
+```bash
+http://localhost:8501
+```
+### Option 2: Run the Training Notebooks
+If you want to retrain the models or explore the data pipeline, you can run the provided Jupyter notebooks.
+**1. Set up Kaggle API (for downloading the dataset)**
+- Log in to your Kaggle account.
+
+- Go to Settings -> API -> Create New Token to download your ```kaggle.json``` file.
+
+- Place the ```kaggle.json```file in the correct directory:
+
+  - Windows: ```C:\Users\<Windows-username>\.kaggle\kaggle.json```
+
+  - Mac/Linux: ```~/.kaggle/kaggle.json```
+    
+**2. Open the Notebooks**
+Navigate to the ```notebooks/``` directory and open them using Jupyter Notebook or Google Colab:
+```bash
+cd notebooks
+jupyter notebook
+```
+**3. Execution Order:**
+- Run ```ai_vs_real_image_classification_cnn.ipynb``` to train the custom baseline model.
+- Run ```ai_vs_real_image_classification_EfficientNetB0.ipynb``` to train the transfer learning model.
+- Run ```model_comparison.ipynb``` to generate evaluation metrics and visualizations.
 ---
 ## 🔍 Prediction Example
 ```python
@@ -152,9 +193,9 @@ def predict_image(image_path):
 ## ⚠️ Limitations
 - Performance depends on CIFAKE dataset
 - struggle with:
- - Real-world camera images
- - Social media images
- - AI images from unseen generators
+   - Real-world camera images
+   - Social media images
+   - AI images from unseen generators
 
 ---
 
@@ -177,6 +218,9 @@ AIvsFAKE_image_project/
 │   ├── ai_vs_real_image_classification_cnn.ipynb
 │   ├── ai_vs_real_image_classification_EfficientNetB0.ipynb
 │   └── model_comparison.ipynb
+├── app/
+│   ├── app.py
+│   └── requirements.txt
 ├── results/
 │   ├── cnn_accuracy.png
 │   ├── cnn_confusion_matrix.png
@@ -191,6 +235,4 @@ AIvsFAKE_image_project/
 ```md
 This project demonstrates a complete deep learning pipeline from data preprocessing to model evaluation and inference.
 ```
-**Try the live application here:** [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://aivsfake-classifier.streamlit.app/)
- 
-**A deep learning web application built to distinguish between real photographs and AI-generated synthetic images.**
+
